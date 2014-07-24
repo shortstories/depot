@@ -13,13 +13,9 @@
 	</div>
 	<div id="columns">
 		<div id="side">
-			<div id="cart"
-				<% if @cart.line_items.empty? %>
-					style="display: none"
-				<% end %>
-			>
+			<%= hidden_div_if(@cart.line_items.empty?, id: "cart") do %>
 				<%= render @cart %>
-			</div>
+			<% end %>
 			<ul>
 				<li class="time"><%= Time.now %></li>
 				<li><%= link_to "Home" %></li>

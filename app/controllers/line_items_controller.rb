@@ -49,7 +49,6 @@ class LineItemsController < ApplicationController
   # PATCH/PUT /line_items/1
   # PATCH/PUT /line_items/1.json
   def update
-    @cart = current_cart
     respond_to do |format|
       if @line_item.update(line_item_params)
         format.html { redirect_to @cart, notice: 'Line item was successfully updated.' }
@@ -64,11 +63,26 @@ class LineItemsController < ApplicationController
   # DELETE /line_items/1
   # DELETE /line_items/1.json
   def destroy
-    @cart = current_cart
     @line_item.destroy
     respond_to do |format|
       format.html { redirect_to @cart, notice: 'Line item was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def reduce
+    @line_item = @cart.reduce_product(params[:line_item_id])
+
+    respond_to do |format|
+      if @line_item
+        format.html { redirect_to store_url}
+        format.js {@current_item = @line_item}
+        format.json { render json: @line_item, status: :ok, location: @line_item }
+      else
+        format.html { redirect_to store_url}
+        format.js
+        format.json { head :no_content }
+      end
     end
   end
 

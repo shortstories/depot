@@ -6,4 +6,5 @@
 	<td><%= line_item.quantity %>&times;</td>
 	<td><%= line_item.product.title %></td>
 	<td class="item_price"><%= number_to_currency(line_item.total_price) %></td>
+	<td><div class="button"><%= button_to "X", line_item_reduce_path(:line_item_id => line_item.id), data: { confirm: 'Are you sure?' },  remote: true %></div></td>
 </tr>
