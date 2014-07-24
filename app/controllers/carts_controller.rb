@@ -5,6 +5,7 @@ class CartsController < ApplicationController
   # GET /carts.json
   def index
     @carts = Cart.all
+    @cart = current_cart
   end
 
   # GET /carts/1
@@ -60,6 +61,7 @@ class CartsController < ApplicationController
 
     respond_to do |format|
       format.html {redirect_to store_url, notice: 'Your cart is currently empty'}
+      format.js
       format.json {head :no_content}
     end
   end
